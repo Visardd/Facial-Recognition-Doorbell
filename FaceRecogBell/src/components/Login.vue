@@ -1,8 +1,12 @@
 <template>
     <div class="container mt-5">
-      <form @submit.prevent="submit()" class="border p-4 bg-light">
-        <h2 class="mb-4 text-center">Sign Up!</h2>
+      <form @submit.prevent="login()" class="border p-4 bg-light">
+        <h2 class="mb-4 text-center">Log In!</h2>
   
+        <div v-if="loginError" class="alert alert-danger">
+          {{ loginErrorMessage }}
+        </div>
+
         <!-- Username Field -->
         <div class="form-group mb-3">
           <label for="usernameInput" class="form-label">Username</label>
@@ -15,43 +19,32 @@
           <input type="password" v-model="password" class="form-control" id="passwordInput" placeholder="Password" required>
         </div>
 
-        <div class="form-group mb-4">
-          <label for="passwordInput2" class="form-label">Confirm Password</label>
-          <input type="password" v-model="password2" class="form-control" id="passwordInput2" placeholder="Password" required>
-        </div>
-        <div v-if="passwordError" class="alert alert-danger">
-            Passwords do not match.
-        </div>
-        <div v-if="userExistsError" class="alert alert-danger">
-            Username already exists.
-        </div>
         <!-- Submit Button -->
         <button type="submit" class="btn btn-primary w-100">Submit</button>
       </form>
     </div>
   </template>
-  
-  
-  <script>
-      import { defineComponent } from "vue";
-      import router from '../router/index'
 
+<script >
+    import { defineComponent } from "vue";
+    
+    
+    export default defineComponent({
+        data() {
+            return {
+                username: '',
+                password: '',
+                token: '',
+                loginError: false,
+                loginErrorMessage: '',
 
-      export default defineComponent({
-          data() {
-              return {
-                  username: '',
-                  password: '',
-                  password2: '',
-                  token: '',
-                  passwordError: false,
-                  userExistsError: false,
-              }
-          },
+            }
+        },
+        methods: {
 
-      })
-  </script>
-  
-  <style scoped>
-  </style>
-  
+        },
+    })
+</script>
+
+<style scoped>
+</style>
