@@ -34,7 +34,6 @@
   
   <script>
       import { defineComponent } from "vue";
-      import router from '../router/index'
 
 
       export default defineComponent({
