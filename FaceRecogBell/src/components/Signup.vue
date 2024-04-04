@@ -1,9 +1,16 @@
 <template>
 	<div class="container mt-5">
-		<form @submit.prevent="submitLogin()" class="border p-4 bg-light">
+		<form @submit.prevent="submitSignup()" class="border p-4 bg-light">
 			<h2 class="mb-4 text-center">Sign Up!</h2>
 
 			<!-- Username Field -->
+
+			<div class="form-group mb-3">
+				<label for="usernameInput" class="form-label">Email</label>
+				<input type="email" v-model="email" class="form-control" id="emailInput"
+					placeholder="Enter email" required>
+			</div>
+
 			<div class="form-group mb-3">
 				<label for="usernameInput" class="form-label">Username</label>
 				<input type="text" v-model="username" class="form-control" id="usernameInput"
@@ -44,6 +51,7 @@ export default defineComponent({
 	data() {
 		return {
 			username: '',
+			email: '',
 			password: '',
 			password2: '',
 			token: '',
@@ -52,10 +60,11 @@ export default defineComponent({
 		}
 	},
 	methods: {
-		submitLogin() {
+		submitSignup() {
 			return client.post(
-				"/login/",
+				"/signup/",
 				{
+					email: this.email,
 					username: this.username,
 					password: this.password
 				}
