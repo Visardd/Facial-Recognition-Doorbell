@@ -54,7 +54,7 @@ export default defineComponent({
 					password: this.password
 				}
 			).then(function () {
-				console.log("It worked!!!!")
+				console.log("It worked!!!lkjsd!")
 				return true
 			}).catch(function () {
 				console.log("It didn't work!!!")

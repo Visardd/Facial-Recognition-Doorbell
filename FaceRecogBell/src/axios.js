@@ -6,6 +6,7 @@ axios.defaults.withCredentials = true;
 axios.defaults.withXSRFToken = true
 
 export const client = axios.create({ // Creates the connection between frontend and backend
+    withCredentials: True,
     baseURL: "http://127.0.0.1:8000"
 });
 
