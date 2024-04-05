@@ -16,7 +16,9 @@
 		methods: {
 			submitLogout() {
 				return client.post(
-					"/logout/", {}
+					"/logout/", {
+						// withCredentials: true,
+					}
 				).then(function () {
 					console.log("Logged out")
 					return true
