@@ -9,6 +9,7 @@ from rest_framework import permissions, status
 from datetime import datetime
 import datetime as dt
 import calendar
+from .functions import *
 
 
 class UserSignup(APIView):
@@ -19,9 +20,14 @@ class UserSignup(APIView):
         username = request.data["username"]
         password = request.data["password"]
         
-        user = User.objects.create_user(username=username, email=email, password=password)
-        print(user)
-        return Response({}, status=status.HTTP_200_OK)
+        User.objects.create_user(username=username, email=email, password=password)
+        loggedIn, username = LoginUser(request, username, password)
+        if loggedIn:
+            return Response({"username": username}, status=status.HTTP_200_OK)
+
+        
+        return Response({}, status=status.HTTP_400_BAD_REQUEST)
+
 
 class UserLogin(APIView):
     # permission_classes = () # Allows anyone to make a POST request
@@ -29,16 +35,11 @@ class UserLogin(APIView):
     def post(self, request):
         username = request.data["username"]
         password = request.data["password"]
-        
-        user = authenticate(request, username=username, password=password)
-        print(user)
-        if user is not None:
-            # A backend authenticated the credentials
-            login(request, user)
-            return Response({}, status=status.HTTP_200_OK)
-        else:
-            # No backend authenticated the credentials
-            return Response({}, status=status.HTTP_400_BAD_REQUEST)
+
+        loggedIn, username = LoginUser(request, username, password)
+
+        if loggedIn:
+            return Response({"username": username}, status=status.HTTP_200_OK)
         return Response({}, status=status.HTTP_400_BAD_REQUEST)
     
 

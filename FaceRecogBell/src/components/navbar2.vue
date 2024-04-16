@@ -1,17 +1,23 @@
 <template>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container-fluid">
-        <router-link class="navbar-brand" to="/">Home</router-link>
-          <ul class="navbar-nav .navbar-right">
-            <li><router-link class="nav-link" @click="submitLogin">Log ut</router-link></li>
-          </ul>
-        </div>
-      
-    </nav>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	  <div class="container-fluid">
+		<router-link class="navbar-brand" to="/">Home</router-link>
+		  <ul class="navbar-nav .navbar-right">
+			<li class="nav-link" @click="submitLogout">Logout</li>
+		  </ul>
+		</div>
+	  
+	</nav>
 </template>
-  
+
+
 <script>
+
+	import { client } from "../axios"
+
 	import { defineComponent } from "vue";
+	import { useUserStore } from "@/stores/auth";
+
 	export default defineComponent({
 		methods: {
 			submitLogout() {
@@ -20,7 +26,8 @@
 						// withCredentials: true,
 					}
 				).then(function () {
-					console.log("Logged out")
+					const userStore = useUserStore();
+					userStore.logout()
 					return true
 				}).catch(function () {
 					console.log("Didn't log out")

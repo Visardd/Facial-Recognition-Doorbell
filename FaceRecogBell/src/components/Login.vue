@@ -7,6 +7,8 @@
 				{{ loginErrorMessage }}
 			</div>
 
+			
+
 			<!-- Username Field -->
 			<div class="form-group mb-3">
 				<label for="usernameInput" class="form-label">Username</label>
@@ -29,8 +31,8 @@
 
 <script>
 import { defineComponent } from "vue";
-import { client } from "../axios"
-
+import { useUserStore } from "@/stores/auth";
+import { SendLoginRequest } from "@/server/authentication";
 
 export default defineComponent({
 	
@@ -45,21 +47,20 @@ export default defineComponent({
 		}
 	},
 	methods: {
-		submitLogin() {
-			console.log("??")
-			return client.post(
-				"/login/",
-				{
-					username: this.username,
-					password: this.password
-				}
-			).then(function () {
-				console.log("It worked!!!lkjsd!")
-				return true
-			}).catch(function () {
-				console.log("It didn't work!!!")
-				return false
-			})
+		async submitLogin() {
+			let [loggedIn, username] = await SendLoginRequest(this.username, this.password)
+
+			if (!loggedIn) {
+				this.loginError = true
+				this.loginErrorMessage = "eRROr"
+				return
+			}
+
+			const userStore = useUserStore();
+			userStore.login(username)
+			this.$router.push({ path: '/' })
+			
+			
 		}
 	}
 })

@@ -45,7 +45,9 @@
 <script>
 import { defineComponent } from "vue";
 import { client } from "../axios"
+import { useUserStore } from "@/stores/auth";
 
+import { SendSignupRequest } from "@/server/authentication";
 
 export default defineComponent({
 	data() {
@@ -60,21 +62,18 @@ export default defineComponent({
 		}
 	},
 	methods: {
-		submitSignup() {
-			return client.post(
-				"/signup/",
-				{
-					email: this.email,
-					username: this.username,
-					password: this.password
-				}
-			).then(function () {
-				console.log("It worked!!!!")
-				return true
-			}).catch(function () {
-				console.log("It didn't work!!!")
-				return false
-			})
+		async submitSignup() {
+			let [signedUp, username] = await SendSignupRequest(this.email, this.username, this.password)
+						
+			if (!signedUp) {
+				console.log("Error signing up")
+				return
+			}
+
+			const userStore = useUserStore();
+			userStore.login(username)
+			this.$router.push({ path: '/' })
+			
 		}
 	}
 

@@ -5,7 +5,7 @@
         <ul class="navbar-nav .navbar-right">
           <li><router-link class="nav-link" to="/Login">Login</router-link></li>
           <li><router-link class="nav-link" to="/Signup">Sign Up</router-link></li>
-          <li class="nav-link" @click="submitLogout">Log out</li>
+          <!-- <li class="nav-link" @click="submitLogout">Log out</li> -->
         </ul>
       </div>
     

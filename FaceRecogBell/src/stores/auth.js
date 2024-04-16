@@ -4,17 +4,15 @@ export const useUserStore = defineStore('user', {
   state() {
     return {
       username: null,
-      token: null,
     };
   },
   actions: {
-    login(username, token) {
+    login(username) {
+      console.log("Username set!" + username)
       this.username = username;
-      this.token = token;
     },
     logout() {
       this.username = null;
-      this.token = null;
     },
   },
 });
