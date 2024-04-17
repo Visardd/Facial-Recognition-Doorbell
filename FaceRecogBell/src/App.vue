@@ -86,7 +86,7 @@ Promise.all([
 			video.srcObject = stream
 
 			function getLabeledFaceDescriptions() {
-				const labels = ["Felipe", "Messi", "Data"];
+				const labels = ["Felipe", "Messi", "Visard"];
 				return Promise.all(
 					labels.map(async (label) => {
 						const descriptions = [];
@@ -146,4 +146,6 @@ Promise.all([
 
 
 </script>
-<style scoped></style>
+<style scoped>
+
+</style>
