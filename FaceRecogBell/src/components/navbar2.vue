@@ -3,7 +3,11 @@
 	  <div class="container-fluid">
 		<router-link class="navbar-brand" to="/">Home</router-link>
 		  <ul class="navbar-nav .navbar-right">
+			<li><router-link class="nav-link" to="/profile">View Profile</router-link></li>
+
 			<li class="nav-link" @click="submitLogout">Logout</li>
+			
+
 		  </ul>
 		</div>
 	  

@@ -10,7 +10,7 @@
 	</header>
 
 	<body>
-		<video id="video" width="600" height="450" autoplay></video>
+		<!-- <video id="video" width="600" height="450" autoplay></video> -->
 	</body>
 
 	<RouterView />
@@ -20,6 +20,7 @@ import { RouterLink, RouterView } from 'vue-router'
 import { defineComponent, onMounted } from "vue";
 import navbar1 from '@/components/navbar1.vue';
 import navbar2 from '@/components/navbar2.vue';
+
 import { useUserStore } from '../src/stores/auth'
 import * as faceapi from 'face-api.js';
 
