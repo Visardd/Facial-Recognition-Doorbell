@@ -31,9 +31,9 @@ const router = createRouter({
       component: Signup
     },
     {
-      path: '/Profile',
-      name: 'Profile',
-      component: Profile
+      path: '/profile',
+      name: 'profile',
+      component: profile
     },
     
   ]

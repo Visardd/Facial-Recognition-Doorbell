@@ -52,14 +52,3 @@ class UserLogout(APIView):
         logout(request)
         return Response(status=status.HTTP_200_OK)
     
-def image(request):
-
-    if request.method =='POST':
-        form = ImageForm(request.POST, request.FILES)
-
-        if form.is_valid():
-            form.save()
-            return redirect('success')
-    else:
-        form = ImageForm()
-    return render(request, '')
