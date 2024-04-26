@@ -8,10 +8,10 @@
 			<navbar1 />
 		</div>
 	</header>
-<!-- 
+
 	<body>
 		<video id="video" width="600" height="450" autoplay></video>
-	</body> -->
+	</body>
 
 	<RouterView />
 </template>
