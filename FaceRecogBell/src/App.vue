@@ -23,14 +23,13 @@ import navbar2 from '@/components/navbar2.vue';
 
 import { useUserStore } from '../src/stores/auth'
 import * as faceapi from 'face-api.js';
-import Profile from './components/profile.vue';
+
 
 export default defineComponent({
 	components: {
 		RouterView,
 		navbar1,
 		navbar2,
-		Profile
 	},
 	setup() {
 		const userStore = useUserStore();
