@@ -133,5 +133,5 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MEDIA_ROOT =  BASE_DIR / 'media'
-MEDIA_URL = '/media/'
+MEDIA_ROOT =  'C:/Users/visin/OneDrive/Desktop/Facial-Recognition-Doorbell/FaceRecogBell/src/labels'
+MEDIA_URL = '/labels/'
