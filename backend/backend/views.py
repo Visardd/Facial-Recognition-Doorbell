@@ -51,4 +51,4 @@ class UserLogout(APIView):
         print(request.user)
         logout(request)
         return Response(status=status.HTTP_200_OK)
-    
+
