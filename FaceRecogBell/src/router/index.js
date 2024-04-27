@@ -4,6 +4,8 @@ import HomeView from '../views/HomeView.vue'
 import Login from '../components/Login.vue'
 import Signup from '../components/Signup.vue'
 import Profile from '../components/Profile.vue'
+import cameraview from '../components/cameraview.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -34,6 +36,11 @@ const router = createRouter({
       path: '/Profile',
       name: 'Profile',
       component: Profile
+    },
+    {
+      path: '/cameraview',
+      name: 'cameraview',
+      component: cameraview
     },
     
   ]
