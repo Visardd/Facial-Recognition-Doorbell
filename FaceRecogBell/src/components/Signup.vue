@@ -29,6 +29,11 @@
 				<input type="password" v-model="password2" class="form-control" id="passwordInput2"
 					placeholder="Password" required>
 			</div>
+
+			<div v-if="password !== password2" class="alert alert-danger">
+				Passwords do not match.
+			
+			</div>
 			<div v-if="passwordError" class="alert alert-danger">
 				Passwords do not match.
 			</div>
@@ -67,6 +72,7 @@ export default defineComponent({
 						
 			if (!signedUp) {
 				console.log("Error signing up")
+				this.passwordError = true
 				return
 			}
 

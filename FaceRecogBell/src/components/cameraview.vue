@@ -12,16 +12,21 @@
             <button class="btn btn-primary" @click="uploadImage">Upload Image</button>
             <button class="btn btn-secondary" @click="addName">Add name</button>
             <div v-if="uploadSuccess" class="alert alert-success mt-3">File uploaded successfully!</div>
+            <div v-else class="alert alert-danger mt-3">Please select an image and enter a category</div>
+
             <div v-if="imagePreview">
-            <h3>Image Preview:</h3>
-      <img :src="imagePreview" alt="Preview" width="200">
-    </div>
-  </div><br>
-        <button class="btn btn-primary" @click="clearNotifications">Clear Notifications</button>
-        <div id="detection-log" style="position: fixed; right: 0; top: 60px; width: 300px; background: rgba(255,255,255,0.9); padding: 10px; height: 90vh; overflow-y: auto;">
-            
-            <!-- here is where notifications are spawned in -->
-        </div>    
+                <h3>Image Preview:</h3>
+                <img :src="imagePreview" alt="Preview" width="200">
+            </div>
+        </div><br>
+        <div>
+            <button class="btn btn-primary" @click="clearNotifications">Clear Notifications</button>
+            <div id="detection-log"
+                style="position: fixed; right: 0; top: 60px; width: 300px; background: rgba(255,255,255,0.9); padding: 10px; height: 90vh; overflow-y: auto;">
+
+                <!-- here is where notifications are spawned in -->
+            </div>
+        </div>
     </body>
 </template>
 
@@ -33,17 +38,17 @@ import axios from 'axios';
 
 export default defineComponent({
     data() {
-    return {
-      image: null,
-      category: '',
-      uploadSuccess: false,
-      imagePreview: null,
-      labels: [],
-    }
-  },
+        return {
+            image: null,
+            category: '',
+            uploadSuccess: false,
+            imagePreview: null,
+            labels: [],
+        }
+    },
     components: {
-        
-    },methods: {
+
+    }, methods: {
         addName() {
             this.labels.push(this.category);
             console.log(this.labels);
@@ -53,6 +58,12 @@ export default defineComponent({
             this.imagePreview = URL.createObjectURL(this.image); // Create a preview URL for the selected image
         },
         uploadImage() {
+            if (!this.image || !this.category) {
+                console.error("Please select an image and enter a category");
+                // this.uploadSuccess = False;
+                return;
+            }
+
             const formData = new FormData();
             formData.append('image', this.image);
             formData.append('title', 'Sample Image');
@@ -133,7 +144,7 @@ export default defineComponent({
                     video.srcObject = stream
 
                     function getLabeledFaceDescriptions() {
-                        const labels = ["Felipe", "Fiona", "Visard"];
+                        const labels = ["Messi", "Fiona", "Visard", "Unknown"];
                         return Promise.all(
                             labels.map(async (label) => {
                                 const descriptions = [];
@@ -191,9 +202,9 @@ export default defineComponent({
                                         }
                                     }
                                 }
-                                
-                                
-                                handleDetection(result, ["Felipe", "Fiona", "Visard", "Unknown"]);
+
+
+                                handleDetection(result, ["Messi", "Fiona", "Visard", "Unknown"]);
                             });
                         }, 100);
                     });
@@ -211,17 +222,13 @@ export default defineComponent({
 });
 </script>
 <style>
-    .notification {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        background-color: #fff;
-        padding: 10px;
-        border-radius: 5px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    
+.notification {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 </style>
-
-

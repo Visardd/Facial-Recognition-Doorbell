@@ -32,14 +32,16 @@
 					}
 				).then(function () {
 					const userStore = useUserStore();
-					userStore.logout()
-					return true
+					userStore.logout();
+					this.$router.push('/login');
+					return true;
 				}).catch(function () {
-					console.log("Didn't log out")
-					return false
-				})
+					console.log("Successfully logged out");
+					return false;
+				});
 			}
 		}
+
 	})
 </script>
   
