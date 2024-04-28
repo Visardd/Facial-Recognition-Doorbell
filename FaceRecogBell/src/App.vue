@@ -3,9 +3,19 @@
 
 		<div v-if="userStore.username">
 			<navbar2 />
+			<div>
+				<h1>Welcome, {{ userStore.username }}!</h1>
+				<p>Thank you for logging in.</p>
+			</div>
 		</div>
 		<div v-else>
 			<navbar1 />
+			
+				<div>
+					<h1>Welcome to our website!</h1>
+					<p>Please sign in or create an account to continue.</p>
+				</div>
+			
 		</div>
 	</header>
 
