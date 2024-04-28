@@ -7,7 +7,7 @@
         <button @click="clearNotifications">Clear Notifications</button>
         <div id="detection-log" style="position: fixed; right: 0; top: 60px; width: 300px; background: rgba(255,255,255,0.9); padding: 10px; height: 90vh; overflow-y: auto;">
             
-            
+            <!-- here is where notifications are spawned in -->
         </div>    
     </body>
 </template>
