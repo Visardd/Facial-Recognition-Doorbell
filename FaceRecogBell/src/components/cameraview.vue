@@ -3,8 +3,12 @@
         
     </div>
 
+    
+
     <body>
-        <video id="video" width="600" height="450" autoplay></video>
+        <div class="container">
+            <video id="video" width="600" height="450" autoplay></video>
+        </div>
     </body>
 </template>
 
@@ -139,6 +143,5 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
 
-</style>
+
