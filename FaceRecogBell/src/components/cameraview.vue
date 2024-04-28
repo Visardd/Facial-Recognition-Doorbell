@@ -12,7 +12,16 @@
 
   import { defineComponent, onMounted } from "vue";
 
-  
+onMounted(() => {
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then((stream) => {
+            const video = document.getElementById('video');
+            video.srcObject = stream;
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+});
   import { useUserStore } from '../stores/auth'
   import * as faceapi from 'face-api.js';
   
@@ -22,9 +31,7 @@
           
       },
       setup() {
-          const userStore = useUserStore();
 
-          return { userStore };
       }
   });
   
@@ -66,7 +73,6 @@
           navigator.webkitGetUserMedia ||
           navigator.mozGetUserMedia;
   
-      // Start video camera
       navigator.getUserMedia({
           video: true,
           audio: false
@@ -94,25 +100,25 @@
               }
   
               video.addEventListener("play", async () => {
-                  const labeledFaceDescriptors = await getLabeledFaceDescriptions();
-                  const faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors);
-  
-                  const canvas = faceapi.createCanvasFromMedia(video);
-                  document.body.append(canvas);
-  
-                  const displaySize = { width: video.width, height: video.height };
-                  faceapi.matchDimensions(canvas, displaySize);
-  
-                  setInterval(async () => {
-                      const detections = await faceapi
-                          .detectAllFaces(video)
-                          .withFaceLandmarks()
-                          .withFaceDescriptors();
-  
-                      const resizedDetections = faceapi.resizeResults(detections, displaySize);
-  
-                      canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
-  
+                    const labeledFaceDescriptors = await getLabeledFaceDescriptions();
+                    const faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors);
+    
+                    const canvas = faceapi.createCanvasFromMedia(video);
+                    document.body.append(canvas);
+    
+                    const displaySize = { width: video.width, height: video.height };
+                    faceapi.matchDimensions(canvas, displaySize);
+    
+                    setInterval(async () => {
+                        const detections = await faceapi
+                            .detectAllFaces(video)
+                            .withFaceLandmarks()
+                            .withFaceDescriptors();
+    
+                        const resizedDetections = faceapi.resizeResults(detections, displaySize);
+    
+                        canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
+
                       const results = resizedDetections.map((d) => {
                           return faceMatcher.findBestMatch(d.descriptor);
                       });
