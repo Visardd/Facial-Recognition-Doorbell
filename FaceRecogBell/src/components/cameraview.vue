@@ -111,7 +111,6 @@ export default defineComponent({
 
                         const displaySize = { width: video.width, height: video.height };
                         faceapi.matchDimensions(canvas, displaySize);
-
                         setInterval(async () => {
                             const detections = await faceapi
                                 .detectAllFaces(video)
@@ -130,7 +129,7 @@ export default defineComponent({
                                 const drawBox = new faceapi.draw.DrawBox(box, {
                                     label: result,
                                 });
-                                drawBox.draw(canvas);
+                                // drawBox.draw(canvas);
                                 function handleDetection(result, labels) {
                                     if (result.label && labels.includes(result.label)) {
                                         const currentTime = new Date().getTime();
@@ -144,10 +143,7 @@ export default defineComponent({
                                         }
                                     }
                                 }
-                                function clearNotifications() {
-                                    const detectionLog = document.getElementById('detection-log');
-                                    detectionLog.innerHTML = '';
-                                }
+                                
                                 
                                 handleDetection(result, ["Felipe", "Fiona", "Visard", "Unknown"]);
                             });
