@@ -1,14 +1,14 @@
 <template>
-    <div>
-        
-    </div>
-
-    
 
     <body>
         <div class="container">
             <video id="video" width="600" height="450" autoplay></video>
         </div>
+        <button @click="clearNotifications">Clear Notifications</button>
+        <div id="detection-log" style="position: fixed; right: 0; top: 60px; width: 300px; background: rgba(255,255,255,0.9); padding: 10px; height: 90vh; overflow-y: auto;">
+            
+            
+        </div>    
     </body>
 </template>
 
@@ -19,7 +19,12 @@ import * as faceapi from 'face-api.js';
 
 export default defineComponent({
     components: {
-
+        
+    },methods: {
+        clearNotifications() {
+            const detectionLog = document.getElementById('detection-log');
+            detectionLog.innerHTML = '';
+        }
     },
     setup() {
         onMounted(() => {
@@ -126,6 +131,25 @@ export default defineComponent({
                                     label: result,
                                 });
                                 drawBox.draw(canvas);
+                                function handleDetection(result, labels) {
+                                    if (result.label && labels.includes(result.label)) {
+                                        const currentTime = new Date().getTime();
+                                        const lastDetectionTime = localStorage.getItem("lastDetectionTime");
+                                        if (!lastDetectionTime || currentTime - lastDetectionTime > 5000) {
+                                            localStorage.setItem("lastDetectionTime", currentTime);
+                                            const heading = document.createElement('h1');
+                                            const text = document.createTextNode(`${result.label} detected at ${new Date().toLocaleTimeString()}`);
+                                            heading.appendChild(text);
+                                            document.getElementById('detection-log').appendChild(heading);
+                                        }
+                                    }
+                                }
+                                function clearNotifications() {
+                                    const detectionLog = document.getElementById('detection-log');
+                                    detectionLog.innerHTML = '';
+                                }
+                                
+                                handleDetection(result, ["Felipe", "Fiona", "Visard", "Unknown"]);
                             });
                         }, 100);
                     });
@@ -142,6 +166,16 @@ export default defineComponent({
     }
 });
 </script>
-
+<style>
+    .notification {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+</style>
 
 
