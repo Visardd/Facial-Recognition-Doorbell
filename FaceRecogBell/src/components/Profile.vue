@@ -1,79 +1,58 @@
 <template>
-  <div>
-    <h1>Hello {{ userStore.username }}</h1>
-    <input type="file" @change="onFileChange">
-    <input type="text" v-model="category" placeholder="Enter category">
-    <button @click="uploadImage">Upload Image</button>
-    <div v-if="uploadSuccess" class="alert alert-success mt-3">File uploaded successfully!</div>
-    <div v-if="imagePreview">
-      <h3>Image Preview:</h3>
-      <img :src="imagePreview" alt="Preview" width="200">
+  <div class="profile">
+    <div class="profile-header">
+      <img class="profile-picture" src="./Pic.png" alt="Profile Picture">
+      <h1>{{ userStore.username }}</h1>
+      <p>{{ userStore.email }}</p>
+    </div>
+    <div class="profile-content">
+      <!-- Add additional profile information here -->
     </div>
   </div>
 </template>
 
 <script>
-
-import axios from 'axios';
 import { useUserStore } from '../stores/auth'
 import { defineComponent } from 'vue'
 
-
 export default defineComponent({
-  data() {
-    return {
-      image: null,
-      category: '',
-      uploadSuccess: false,
-      imagePreview: null,
-    }
-  },
   setup() {
-		const userStore = useUserStore();
+    const userStore = useUserStore();
 
-		return { userStore };
-	},
-  methods: {
-    onFileChange(e) {
-      this.image = e.target.files[0];
-      this.imagePreview = URL.createObjectURL(this.image); // Create a preview URL for the selected image
-    },
-    uploadImage() {
-      const formData = new FormData();
-      formData.append('image', this.image);
-      formData.append('title', 'Sample Image');
-      formData.append('category', this.category);
-
-      axios.post('http://localhost:8000/upload/', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      })
-      .then(response => {
-        console.log(response);
-        this.uploadSuccess = true; // Set uploadSuccess to true after successful upload
-      })
-      .catch(error => console.error(error));
-    }
+    return { userStore };
   }
 })
 </script>
 
 <style>
-input[type="file"],
-input[type="text"],
-button {
-  margin: 10px;
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
 }
 
-.alert {
-  padding: 10px;
-  background-color: #dff0d8;
-  border: 1px solid #d6e9c6;
-  border-radius: 4px;
-  color: #3c763d;
+.profile-header {
+  text-align: center;
 }
+
+.profile-picture {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.profile h1 {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.profile p {
+  font-size: 16px;
+  color: #888;
+}
+
+
 </style>

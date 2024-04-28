@@ -4,7 +4,20 @@
         <div class="container">
             <video id="video" width="600" height="450" autoplay></video>
         </div>
-        <button @click="clearNotifications">Clear Notifications</button>
+        <div>
+            <div class="input-group mb-3">
+                <input type="file" class="form-control" @change="onFileChange">
+                <input type="text" class="form-control" v-model="category" placeholder="Enter category">
+            </div>
+            <button class="btn btn-primary" @click="uploadImage">Upload Image</button>
+            <button class="btn btn-secondary" @click="addName">Add name</button>
+            <div v-if="uploadSuccess" class="alert alert-success mt-3">File uploaded successfully!</div>
+            <div v-if="imagePreview">
+            <h3>Image Preview:</h3>
+      <img :src="imagePreview" alt="Preview" width="200">
+    </div>
+  </div><br>
+        <button class="btn btn-primary" @click="clearNotifications">Clear Notifications</button>
         <div id="detection-log" style="position: fixed; right: 0; top: 60px; width: 300px; background: rgba(255,255,255,0.9); padding: 10px; height: 90vh; overflow-y: auto;">
             
             <!-- here is where notifications are spawned in -->
@@ -16,11 +29,46 @@
 import { defineComponent, onMounted } from "vue";
 import { useUserStore } from '../stores/auth'
 import * as faceapi from 'face-api.js';
+import axios from 'axios';
 
 export default defineComponent({
+    data() {
+    return {
+      image: null,
+      category: '',
+      uploadSuccess: false,
+      imagePreview: null,
+      labels: [],
+    }
+  },
     components: {
         
     },methods: {
+        addName() {
+            this.labels.push(this.category);
+            console.log(this.labels);
+        },
+        onFileChange(e) {
+            this.image = e.target.files[0];
+            this.imagePreview = URL.createObjectURL(this.image); // Create a preview URL for the selected image
+        },
+        uploadImage() {
+            const formData = new FormData();
+            formData.append('image', this.image);
+            formData.append('title', 'Sample Image');
+            formData.append('category', this.category);
+
+            axios.post('http://localhost:8000/upload/', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+                .then(response => {
+                    console.log(response);
+                    this.uploadSuccess = true; // Set uploadSuccess to true after successful upload
+                })
+                .catch(error => console.error(error));
+        },
         clearNotifications() {
             const detectionLog = document.getElementById('detection-log');
             detectionLog.innerHTML = '';
@@ -172,6 +220,8 @@ export default defineComponent({
         border-radius: 5px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
+
+    
 </style>
 
 

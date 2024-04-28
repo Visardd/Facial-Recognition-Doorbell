@@ -12,7 +12,7 @@
 			<navbar1 />
 			
 				<div>
-					<h1>Welcome to our website!</h1>
+					<h1>Welcome to FaceRecogBell!</h1>
 					<p>Please sign in or create an account to continue.</p>
 				</div>
 			
