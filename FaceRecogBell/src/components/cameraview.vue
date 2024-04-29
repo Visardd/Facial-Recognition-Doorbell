@@ -1,7 +1,7 @@
 <template>
 
-    <body >
-        <div class="container">
+    <body>
+        <div>
             <video id="video" width="600" height="450" autoplay></video>
         </div>
         <div class="d-flex justify-content-center">
@@ -23,7 +23,7 @@
         <div class="d-flex justify-content-center">
             <button class="btn btn-primary" @click="clearNotifications">Clear Notifications</button>
             <div class="Log" id="detection-log"
-style="position: fixed; right: 0; top: 60px; width: 300px; background: rgba(255,255,255,0.9); padding: 10px; height: 90vh; overflow-y: auto;">
+                style="position: fixed; right: 0; top: 60px; width: 300px; background: rgba(255,255,255,0.9); padding: 10px; height: 90vh; overflow-y: auto;">
 
                 <!-- here is where notifications are spawned in -->
             </div>
@@ -232,6 +232,7 @@ export default defineComponent({
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
 .log {
     position: fixed;
     right: 0;
