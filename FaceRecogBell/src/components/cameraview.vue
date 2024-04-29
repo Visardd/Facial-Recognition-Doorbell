@@ -1,16 +1,17 @@
 <template>
 
-    <body>
+    <body >
         <div class="container">
             <video id="video" width="600" height="450" autoplay></video>
         </div>
-        <div>
-            <div class="input-group mb-3">
+        <div class="d-flex justify-content-center">
+            <div class=" justify-content-center">
                 <input type="file" class="form-control" @change="onFileChange">
                 <input type="text" class="form-control" v-model="category" placeholder="Enter category">
+                <button class="btn btn-primary" @click="uploadImage">Upload Image</button>
+                <button class="btn btn-secondary" @click="addName">Add name</button>
             </div>
-            <button class="btn btn-primary" @click="uploadImage">Upload Image</button>
-            <button class="btn btn-secondary" @click="addName">Add name</button>
+
             <div v-if="uploadSuccess" class="alert alert-success mt-3">File uploaded successfully!</div>
             <div v-else class="alert alert-danger mt-3">Please select an image and enter a category</div>
 
@@ -19,10 +20,10 @@
                 <img :src="imagePreview" alt="Preview" width="200">
             </div>
         </div><br>
-        <div>
+        <div class="d-flex justify-content-center">
             <button class="btn btn-primary" @click="clearNotifications">Clear Notifications</button>
-            <div id="detection-log"
-                style="position: fixed; right: 0; top: 60px; width: 300px; background: rgba(255,255,255,0.9); padding: 10px; height: 90vh; overflow-y: auto;">
+            <div class="Log" id="detection-log"
+style="position: fixed; right: 0; top: 60px; width: 300px; background: rgba(255,255,255,0.9); padding: 10px; height: 90vh; overflow-y: auto;">
 
                 <!-- here is where notifications are spawned in -->
             </div>
@@ -230,5 +231,15 @@ export default defineComponent({
     padding: 10px;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.log {
+    position: fixed;
+    right: 0;
+    top: 60px;
+    width: 300px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    height: 400px;
+    overflow-y: auto;
 }
 </style>

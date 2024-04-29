@@ -49,5 +49,8 @@ export default defineComponent({
 
 </script>
 <style scoped>
+h1, p {
+	text-align: center;
+}
 
 </style>
