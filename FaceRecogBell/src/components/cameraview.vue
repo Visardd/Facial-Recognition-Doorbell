@@ -145,7 +145,7 @@ export default defineComponent({
                     video.srcObject = stream
 
                     function getLabeledFaceDescriptions() {
-                        const labels = ["Messi", "Fiona", "Visard", "Unknown"];
+                        const labels = ["Messi", "Fiona", "Visard", "Ronaldo"];
                         return Promise.all(
                             labels.map(async (label) => {
                                 const descriptions = [];
@@ -189,7 +189,7 @@ export default defineComponent({
                                 const drawBox = new faceapi.draw.DrawBox(box, {
                                     label: result,
                                 });
-                                // drawBox.draw(canvas);
+                                drawBox.draw(canvas);
                                 function handleDetection(result, labels) {
                                     if (result.label && labels.includes(result.label)) {
                                         const currentTime = new Date().getTime();
@@ -205,7 +205,7 @@ export default defineComponent({
                                 }
 
 
-                                handleDetection(result, ["Messi", "Fiona", "Visard", "Unknown"]);
+                                handleDetection(result, ["Messi", "Fiona", "Visard", "Ronaldo"]);
                             });
                         }, 100);
                     });
